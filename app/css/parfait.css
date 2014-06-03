@@ -1,0 +1,33 @@
+.axis path, .axis line {
+  fill: none;
+  stroke: #000;
+  stroke-width: 2px;
+  shape-rendering: crispEdges;
+}
+
+.vertical {
+  position: absolute;
+  z-index: 19;
+  width: 1px;
+  height: 457;
+  top: 20px;
+  bottom: 30px;
+  left: 0px;
+  background: #fff;
+}
+
+.tooltip {
+  font-size: 36px;
+  border-radius: 4px;
+  background: #045A8D;
+  line-height: 0px;
+  height: 46px;
+  width: 80px;
+  border: 1px solid white;
+  color: #fff;
+  position: absolute;
+  z-index: 20;
+  visibility: hidden;
+  top: 190px;
+  left: 800px;
+}

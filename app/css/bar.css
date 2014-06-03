@@ -1,0 +1,38 @@
+body {
+  background-color: rgb(245, 245, 245);
+}
+
+.current-year {
+  position: absolute;
+  top: 90;
+  left: 850;
+}
+
+.slider {
+  position: absolute;
+  top: 20;
+  left: 700;
+}
+
+.play-pause {
+  position: absolute;
+  top: 18;
+  left: 850;
+}
+
+.bar {
+  fill: steelblue;
+}
+
+.bar:hover {
+  fill: brown;
+}
+
+.axis {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  display: none;
+}
