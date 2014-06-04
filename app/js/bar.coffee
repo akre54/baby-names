@@ -6,6 +6,8 @@ margin = top: 0, right: 20, bottom: 30, left: 40
 width = 960 - margin.left - margin.right
 height = 500 - margin.top - margin.bottom
 
+formatPercent = d3.format ".0%"
+
 x = d3.scale.ordinal()
     .rangeRoundBands [0, width], .1
 
@@ -33,13 +35,13 @@ alphabet = String.fromCharCode.apply(null, [65..90]).split ""
 
 findByYear = (year) ->
   result = null
-  data.some (value, index, list) ->
+  names.some (value, index, list) ->
     if value.year is year
       result = value
       true
   result.letters
 
-data = d3.csv.parse namesCsv, (row) ->
+names = d3.csv.parse namesCsv, (row) ->
   row.year = +row.year
   row.letters = for letter in alphabet
     freq = Math.round(+row[letter]) / 100
@@ -50,7 +52,7 @@ data = d3.csv.parse namesCsv, (row) ->
 x.domain alphabet
 y.domain [0, yMax]
 
-[{year: initialYear}, ..., {year: finalYear}] = data
+[{year: initialYear}, ..., {year: finalYear}] = names
 currentYear = initialYear
 
 sliderChange = ->
@@ -90,8 +92,10 @@ updateChart = ->
   slider[0][0].value = currentYear
   yearBox.text currentYear
 
+  data = findByYear currentYear
+
   bars = svg.selectAll ".bar"
-      .data findByYear currentYear
+      .data data
   bars.enter().append "rect"
       .attr "class", "bar"
       .attr "x", (d) -> x d.letter
@@ -102,6 +106,21 @@ updateChart = ->
     .ease "quad"
       .attr "height", (d) -> height - y d.freq
       .attr "y", (d) -> y d.freq
+
+  labels = svg.selectAll ".label"
+    .data data
+
+  labels.enter().append "text"
+      .attr "class", "label"
+      .attr "x", (d) -> x d.letter
+
+  labels.transition()
+      .duration 200
+      .ease "quad"
+        .attr "y", (d) -> y(d.freq) - 10
+        .text (d) -> formatPercent d.freq
+
+  labels.exit()
 
 pause = ->
   playPause.text "Play"
@@ -115,6 +134,7 @@ play = ->
 
 startInterval = ->
   interval = setInterval ->
+    pause() if currentYear is finalYear
     return unless interval
     currentYear++
     updateChart()

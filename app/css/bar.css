@@ -28,6 +28,10 @@ body {
   fill: brown;
 }
 
+.label {
+  fill: steelblue;
+}
+
 .axis {
   font: 10px sans-serif;
 }
