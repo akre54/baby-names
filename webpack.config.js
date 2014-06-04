@@ -5,7 +5,7 @@ module.exports = {
   cache: true,
   debug: true,
   watch: true,
-  // devtool: 'source-map',
+  devtool: 'source-map',
   entry: {
     'parfait': './app/js/parfait',
     'bar': './app/js/bar'
