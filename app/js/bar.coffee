@@ -87,8 +87,6 @@ svg.append "g"
 
 
 updateChart = ->
-  pause() if currentYear > finalYear
-
   slider[0][0].value = currentYear
   yearBox.text currentYear
 
