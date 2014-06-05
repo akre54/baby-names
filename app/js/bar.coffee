@@ -2,7 +2,7 @@ d3 = require "d3"
 namesCsv = require "../assets/names.csv"
 require "../css/bar.css"
 
-margin = top: 0, right: 20, bottom: 30, left: 40
+margin = top: 10, right: 20, bottom: 30, left: 40
 width = 960 - margin.left - margin.right
 height = 500 - margin.top - margin.bottom
 
@@ -113,10 +113,8 @@ updateChart = ->
       .attr "x", (d) -> x d.letter
 
   labels.transition()
-      .duration 200
-      .ease "quad"
-        .attr "y", (d) -> y(d.freq) - 10
-        .text (d) -> formatPercent d.freq
+      .attr "y", (d) -> y(d.freq) - 10
+      .text (d) -> formatPercent d.freq
 
   labels.exit()
 
